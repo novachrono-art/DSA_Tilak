@@ -1,12 +1,8 @@
 class Solution {
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> li = new ArrayList<>();
-        Set<Integer> s = new HashSet<>();
-       
-        int min  = Integer.MAX_VALUE;
+        Set<Integer> s = new HashSet<>(); 
         for(int i=0;i<nums.length;i++){
-            
-            if(nums[i]<min) min = nums[i];
             s.add(nums[i]);
         }
         int n=nums.length;
