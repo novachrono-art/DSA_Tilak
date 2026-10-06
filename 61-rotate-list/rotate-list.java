@@ -9,6 +9,15 @@
  * }
  */
 class Solution {
+    public void reverse(int[] arr,int left,int right){
+        while(left<right){
+            int t = arr[left];
+            arr[left] =arr[right];
+            arr[right]=t;
+            left++;
+            right--;
+        }
+    }
     public ListNode rotateRight(ListNode head, int k) {
         if(head==null || head.next==null || k==0) return head;
         ListNode curr=head;
@@ -20,18 +29,25 @@ class Solution {
         }
         k=k%n;  
         if(k==0) return head;
-        curr=head;
-       for(int i=0;i<n-k-1;i++){
+       int arr[] =new int[n];
+       curr=head;
+       int i=0;
+       while(curr!=null){
+          arr[i]=curr.val;
+          i++;
           curr=curr.next;
        }
-       ListNode temp=curr.next;
-       curr.next=null;
-       ListNode tr =temp;
-       while(tr.next!=null){
-         tr=tr.next;
+       reverse(arr,0,n-1);
+       reverse(arr,0,k-1);
+       reverse(arr,k,n-1);
+       i=0;
+       curr=head;
+       while(curr!=null){
+        curr.val=arr[i];
+        i++;
+        curr=curr.next;
+        
        }
-       tr.next=head;
-    //    curr.next=null;
-       return temp;
+       return head;
     }
 }
