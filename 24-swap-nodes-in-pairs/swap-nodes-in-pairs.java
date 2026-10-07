@@ -11,24 +11,17 @@
 class Solution {
     public ListNode swapPairs(ListNode head) {
         if(head==null || head.next==null) return head;
-        List<ListNode> li = new ArrayList<>();
-        ListNode curr =head;
-        
-        while(curr!=null){
-            li.add(curr);
-            curr=curr.next;
-        }
-        int len=li.size();
-        for(int i=0;i<len-1;i+=2){
-        ListNode first=li.get(i);
-        ListNode second=li.get(i+1);
-        li.set(i,second);
-        li.set(i+1,first);
-      }
-      for(int i=0;i<len-1;i++){
-           li.get(i).next = li.get(i+1);
-      }
-      li.get(len-1).next=null;
-      return li.get(0);
+       ListNode d =new ListNode(0);
+       d.next=head;
+       ListNode prev =d;
+       while(prev.next!=null && prev.next.next!=null){
+         ListNode f = prev.next;
+         ListNode s = prev.next.next;
+         f.next=s.next;
+         s.next=f;
+         prev.next=s;
+         prev=f;
+       }
+       return d.next;
     }
 }
