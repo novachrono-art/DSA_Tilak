@@ -10,50 +10,28 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
-        if(head==null || head.next==null ) return head;
-        ListNode middle = findMiddle(head);
-        ListNode left = head;
-        ListNode right = middle.next;
-        middle.next = null;
-
-        left = sortList(left);
-        right = sortList(right);
-
-        return mergeTwosortedList(left,right);
-    }
-    public ListNode mergeTwosortedList(ListNode l1,ListNode l2){
-        ListNode curr = new ListNode(-1,null);
-        ListNode temp=curr;
-        while(l1!=null && l2!=null){
-            if(l1.val<=l2.val){
-                temp.next=l1;
-                l1=l1.next;
-            }
-            else{
-                temp.next=l2;
-                l2=l2.next;
-            }
-           temp=temp.next;}
-           
-            if(l1!=null){
-                temp.next=l1;
-            }
-            if(l2!=null){
-                temp.next=l2;
-            }
-        
-          return curr.next;
-    }
-    public ListNode findMiddle(ListNode head){
-          if(head==null || head.next==null){
-            return head;
-          }
-          ListNode slow=head;
-          ListNode fast = head.next;
-          while(fast!=null && fast.next!=null){
-            slow=slow.next;
-            fast=fast.next.next;
-          }
-          return slow;
+        ListNode curr= head;
+        int len=0;
+        while(curr!=null){
+            len++;
+            curr=curr.next;
+        }
+        int arr[] = new int[len];
+        curr=head;
+        int i=0;
+        while(curr!=null){
+            arr[i]=curr.val;
+            i++;
+            curr=curr.next;
+        }
+        Arrays.sort(arr);
+        curr=head;
+        i=0;
+        while(curr!=null){
+            curr.val=arr[i];
+            i++;
+            curr=curr.next;
+        }
+        return head;
     }
 }
