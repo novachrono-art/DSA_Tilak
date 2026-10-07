@@ -10,28 +10,46 @@
  */
 class Solution {
     public ListNode sortList(ListNode head) {
-        ListNode curr= head;
-        int len=0;
-        while(curr!=null){
-            len++;
+        if(head==null || head.next==null) return head;
+        ListNode mid =middle(head);
+        ListNode left=head;
+        ListNode right=mid.next;
+        mid.next=null;
+        
+        left = sortList(left);
+        right = sortList(right);
+        return merge(left,right);
+    }
+    public ListNode merge(ListNode l1,ListNode l2){
+        ListNode d = new ListNode(0);
+        ListNode curr=d;
+        while(l1!=null && l2!=null){
+            if(l2.val>=l1.val){
+                curr.next=l1;
+                l1=l1.next;
+            }
+            else{
+                curr.next=l2;
+                l2=l2.next;
+            }
             curr=curr.next;
         }
-        int arr[] = new int[len];
-        curr=head;
-        int i=0;
-        while(curr!=null){
-            arr[i]=curr.val;
-            i++;
-            curr=curr.next;
+        if(l1!=null){
+            curr.next=l1;
         }
-        Arrays.sort(arr);
-        curr=head;
-        i=0;
-        while(curr!=null){
-            curr.val=arr[i];
-            i++;
-            curr=curr.next;
+        if(l2!=null){
+            curr.next=l2;
         }
-        return head;
+        return d.next;
+    }
+    public ListNode middle(ListNode head){
+        if(head==null && head.next==null) return null;
+        ListNode s=head;
+        ListNode f=head.next;
+        while(f!=null && f.next!=null){
+            s=s.next;
+            f=f.next.next;
+        }
+        return s;
     }
 }
