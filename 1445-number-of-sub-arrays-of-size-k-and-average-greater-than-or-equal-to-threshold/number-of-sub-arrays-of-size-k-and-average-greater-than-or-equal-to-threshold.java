@@ -11,11 +11,10 @@ class Solution {
                 if((sum/k)>=threshold){
                 ct++;
             }
-            max=Math.max(max,ct);
                 sum-=arr[s];
                 s++;
             }
         }
-        return max;
+        return ct;
     }
 }
