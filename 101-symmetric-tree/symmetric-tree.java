@@ -16,18 +16,21 @@
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root==null) return true;
-        return help(root.left,root.right);
-    }
-    public boolean help(TreeNode r1,TreeNode r2){
-        if(r1==null || r2==null) return r1==r2;
-        if(r1.val==r2.val){
-            boolean ans1= help(r1.left,r2.right);
-            boolean ans2 =help(r1.right,r2.left);
-            return ans1 && ans2;
+        Queue<TreeNode> q = new LinkedList<>();
+        q.offer(root.left);
+        q.offer(root.right);
+        while(!q.isEmpty()){
+            TreeNode left = q.poll();
+            TreeNode right=q.poll();
+            if(left==null && right==null) continue;
+            if(left==null || right==null || left.val!=right.val){
+                return false;
+            }
+            q.add(left.left);
+            q.add(right.right);
+            q.add(left.right);
+            q.add(right.left);
         }
-        else{
-            return false;
-        }
-
+        return true;
     }
 }
