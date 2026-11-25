@@ -18,13 +18,18 @@ class Solution {
     }
 
     public boolean help(int src,int des,boolean[] seen){
-        if(src==des){
-            return true;
-        }
+        Queue<Integer> q = new LinkedList<>();
+        q.add(src);
+        if(src==des) return true;
         seen[src]=true;
-        for(int arr: mp.get(src)){
-            if(!seen[arr]){
-                if(help(arr,des,seen)) return true;
+        while(!q.isEmpty()){
+            int rv =q.poll();
+            if(rv==des) return true;
+            for(int i:mp.get(rv)){
+                if(!seen[i]){
+                 seen[i]=true;
+                 q.add(i);
+                }
             }
         }
         return false;
