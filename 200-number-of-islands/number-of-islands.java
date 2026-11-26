@@ -14,10 +14,10 @@ class Solution {
         return ct;
     }
     public void help(int i,int j,char[][] arr){
-        if(i<0 || i>=arr.length || j<0 || j>=arr[0].length || arr[i][j]=='0'){
+        if(i<0 || i>=arr.length || j<0 || j>=arr[0].length || arr[i][j]=='3' || arr[i][j]=='0'){
             return;
         }
-        arr[i][j]='0';
+        arr[i][j]='3';
         help(i+1,j,arr);
         help(i-1,j,arr);
         help(i,j+1,arr);
